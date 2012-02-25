@@ -1,0 +1,3 @@
+rvm use ruby-1.9.2-p290@twilio-mongo
+
+export MONGOHQ_URL=mongodb://127.0.0.1:27017/sinatra-mongo-db
