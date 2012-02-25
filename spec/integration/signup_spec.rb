@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Users signing up via SMS" do
   def app
-    SinatraMongoBootstrap
+    TwilioMongoBootstrap
   end
 
   it "during signup" do
