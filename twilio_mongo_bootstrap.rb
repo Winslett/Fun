@@ -27,4 +27,10 @@ class TwilioMongoBootstrap < Sinatra::Base
     end
   end
 
+  get "/" do
+    @users = User.all
+
+    haml :"users.html"
+  end
+
 end
