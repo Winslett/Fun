@@ -9,7 +9,7 @@ Dir.open("./initializers").each do |file|
   require "./initializers/#{file}"
 end
 
-require './sinatra_mongo_bootstrap'
+require './twilio_mongo_bootstrap'
 
 Dir.open("./models").each do |file|
   next if file =~ /^\./
