@@ -12,4 +12,5 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'ruby_gntp' #growl notices, installs on ubuntu too
   gem 'faker'
+  gem 'heroku'
 end
