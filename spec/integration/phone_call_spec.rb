@@ -20,7 +20,7 @@ describe "User calls phone tree" do
 <?xml version='1.0' encoding='utf-8' ?>
 <Response>
   <Say>Thank you for calling my Twilio Mongo Bootstrap</Say>
-  <Gather action='/find_users' method='GET' numDigits='3'>
+  <Gather action='/find_users' method='GET'>
     <Say>To call another member of the tree, please select one of the following</Say>
     <Say>For #{recipient["name"]} dial #{recipient["extension"]}</Say>
   </Gather>
