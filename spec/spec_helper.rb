@@ -34,7 +34,7 @@ RSpec.configure do |conf|
 end
 
 def new_user_attributes
-  {"name" => Faker::Name.name, "phone" => Faker::PhoneNumber.phone_number.gsub(/[^0-9]/, '')[0..9]}
+  {"name" => Faker::Name.name, "phone" => "+1" + Faker::PhoneNumber.phone_number.gsub(/[^0-9]/, '')[0..9]}
 end
 
 def sms_attributes(new_attributes = {})

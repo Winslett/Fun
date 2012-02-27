@@ -2,7 +2,7 @@ require 'openssl'
 
 class User
 
-  PHONE_REGEX = /[\d]{10}/
+  PHONE_REGEX = /^\+[\d]{11}$/
 
   class << self
 
