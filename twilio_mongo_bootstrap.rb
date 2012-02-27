@@ -32,4 +32,9 @@ class TwilioMongoBootstrap < Sinatra::Base
 
     haml :"users.html"
   end
+
+  get "/voice" do
+    puts @params.inspect
+    return {ok: 1}.to_json
+  end
 end
