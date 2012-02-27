@@ -4,6 +4,8 @@ Bundler.require
 
 require 'logger'
 
+$stdout.sync = true
+
 Dir.open("./initializers").each do |file|
   next if file =~ /^\./
   require "./initializers/#{file}"
