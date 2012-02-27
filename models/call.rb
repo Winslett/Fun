@@ -3,17 +3,19 @@ class Call
     def create(attributes)
       sender = User.find_by_phone(attributes["From"])
 
-      recipients = User.all().find_all { |u| u["_id"] != sender["_id"] }
-      recipients = recipients.map { |u| {"name" => u["name"], "phone" => u["phone"], "_id" => u["_id"]} }
-
       document = {
         "sender" => {
           "name" => sender["name"],
           "phone" => sender["phone"],
           "_id" => sender["_id"]
         },
+        "created_at" => Time.now,
         "body" => attributes["Body"],
-        "recipients" => recipients
+        "recipient" => {
+          "name" => attributes["recipient"]["name"],
+          "phone" => attributes["recipient"]["phone"],
+          "_id" => attributes["recipient"]["_id"],
+        }
       }
 
       id = self.collection.insert(document)

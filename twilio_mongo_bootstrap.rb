@@ -75,7 +75,6 @@ class TwilioMongoBootstrap < Sinatra::Base
         haml :"connect_extension_error.xml"
       else
         Call.create(@params.merge("recipient" => @user))
-
         haml :"connect_extension.xml"
       end
     end

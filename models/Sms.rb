@@ -12,6 +12,7 @@ class Sms
           "phone" => sender["phone"],
           "_id" => sender["_id"]
         },
+        "created_at" => Time.now,
         "body" => attributes["Body"],
         "recipients" => recipients
       }

@@ -18,6 +18,7 @@ class User
         if user.nil? # Create a user
           user_id = self.collection.insert(
             attributes.merge(
+              "created_at" => Time.now,
               "auth_key" => OpenSSL::Random.random_bytes(16).unpack("H*")[0],
               "extension" => self.collection.count()
             ))
