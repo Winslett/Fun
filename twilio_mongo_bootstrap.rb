@@ -15,7 +15,10 @@ class TwilioMongoBootstrap < Sinatra::Base
     end
   end
 
+  before_filter :log_params
+
   post "/signup" do
+    puts @params
     @user = User.create("phone" => @params["from"], "name" => @params["body"])
 
     if @user["errors"].nil?
@@ -32,5 +35,4 @@ class TwilioMongoBootstrap < Sinatra::Base
 
     haml :"users.html"
   end
-
 end
