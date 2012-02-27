@@ -51,8 +51,15 @@ class TwilioMongoBootstrap < Sinatra::Base
   end
 
   post "/sms" do
-    puts @params.inspect
-    return {ok: 1}.to_json
+    @caller = User.find_by_phone(@params["From"])
+
+    if @caller.nil?
+      status(200)
+      haml :"sms_errors.xml"
+    else
+      Sms.create(@params)
+      return {ok: 1}.to_json
+    end
   end
 
   post "/connect_extension" do

@@ -44,7 +44,7 @@ class User
     end
 
     def all
-      $db.collection("users").find().to_a
+      self.collection.find().to_a
     end
 
     def collection
