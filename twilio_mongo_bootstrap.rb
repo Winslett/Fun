@@ -54,4 +54,9 @@ class TwilioMongoBootstrap < Sinatra::Base
     puts @params.inspect
     return {ok: 1}.to_json
   end
+
+  post "/connect_extension" do
+    puts @params.inspect
+    return {ok: 1}.to_json
+  end
 end

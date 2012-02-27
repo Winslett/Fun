@@ -20,10 +20,25 @@ describe "User calls phone tree" do
 <?xml version='1.0' encoding='utf-8' ?>
 <Response>
   <Say>Thank you for calling my Twilio Mongo Bootstrap</Say>
-  <Gather action='/find_users' method='GET'>
+  <Gather action='/connect_extension' method='POST'>
     <Say>To call another member of the tree, please select one of the following</Say>
     <Say>For #{recipient["name"]} dial #{recipient["extension"]}</Say>
   </Gather>
+</Response>
+RESPONSE
+  end
+
+  it "connects folks" do
+    caller = User.create(new_user_attributes)
+    recipient = User.create(new_user_attributes)
+
+    post "/connect_extension", sms_attributes("From" => caller["phone"])
+
+    last_response.status.should eq(200)
+    last_response.body.should == <<-RESPONSE
+<?xml version='1.0' encoding='utf-8' ?>
+<Response>
+  <Dial>#{recipient["phone"]}</Dial>
 </Response>
 RESPONSE
   end
