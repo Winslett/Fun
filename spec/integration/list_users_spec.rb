@@ -10,7 +10,7 @@ describe "List users" do
       User.create(new_user_attributes)
     end
 
-    get "/"
+    get "/users"
 
     last_response.status.should eq(200)
   end
