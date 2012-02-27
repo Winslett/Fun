@@ -1,0 +1,4 @@
+!!! XML
+%Response
+  %Say Error finding dialed extension.  Please try again.
+  %Redirect #{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}/connect_extension

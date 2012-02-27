@@ -43,6 +43,22 @@ RESPONSE
 RESPONSE
   end
 
+  it "redirects you back to connection if you cannot type" do
+    caller = User.create(new_user_attributes)
+    recipient = User.create(new_user_attributes)
+
+    post "/connect_extension", sms_attributes("From" => caller["phone"], "Digits" => "35235")
+
+    last_response.status.should eq(200)
+    last_response.body.should == <<-RESPONSE
+<?xml version='1.0' encoding='utf-8' ?>
+<Response>
+  <Say>Error finding dialed extension.  Please try again.</Say>
+  <Redirect>http://example.org/connect_extension</Redirect>
+</Response>
+    RESPONSE
+  end
+
   it "does not offer to connect you if we don't know you" do
     caller = new_user_attributes
     recipient = User.create(new_user_attributes)

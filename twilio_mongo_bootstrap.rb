@@ -70,7 +70,14 @@ class TwilioMongoBootstrap < Sinatra::Base
       haml :"voice_errors.xml"
     else
       @user = User.find_by_extension(@params["Digits"])
-      haml :"connect_extension.xml"
+
+      if @user.nil?
+        haml :"connect_extension_error.xml"
+      else
+        Call.create(@params.merge("recipient" => @user))
+
+        haml :"connect_extension.xml"
+      end
     end
   end
 end
