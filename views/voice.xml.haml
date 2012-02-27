@@ -1,0 +1,7 @@
+!!! XML
+%Response
+  %Say Thank you for calling my Twilio Mongo Bootstrap
+  %Gather{:action => "/find_users", :method => "GET", :numDigits => "3"}
+    %Say To call another member of the tree, please select one of the following
+    - @users.each do |user|
+      %Say For #{user["name"]} dial #{user["extension"]}

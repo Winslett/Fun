@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
+require 'json'
 
 class TwilioMongoBootstrap < Sinatra::Base
   configure :development do
@@ -34,8 +35,15 @@ class TwilioMongoBootstrap < Sinatra::Base
   end
 
   post "/voice" do
-    puts @params.inspect
-    return {ok: 1}.to_json
+    @caller = User.find_by_phone(@params["From"])
+
+    if @caller.nil?
+      status(422)
+      haml :"voice_errors.xml"
+    else
+      @users = User.all.find_all { |u| u["_id"] != @caller["_id"] }
+      haml :"voice.xml"
+    end
   end
 
   post "/sms" do

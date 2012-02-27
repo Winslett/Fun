@@ -13,10 +13,14 @@ class User
       errors << "Incorrect Phone Format" unless attributes["phone"] =~ PHONE_REGEX
 
       if errors.empty?
-        user = $db.collection("users").find_one({"phone" => attributes["phone"]}, :fields => ["_id"])
+        user = self.collection.find_one({"phone" => attributes["phone"]}, :fields => ["_id"])
 
         if user.nil? # Create a user
-          user_id = $db.collection("users").insert(attributes.merge("auth_key" => OpenSSL::Random.random_bytes(16).unpack("H*")[0]))
+          user_id = self.collection.insert(
+            attributes.merge(
+              "auth_key" => OpenSSL::Random.random_bytes(16).unpack("H*")[0],
+              "extension" => self.collection.count()
+            ))
         else
           user_id = $db.collection("users").update({_id: user["_id"]}, attributes)
         end
@@ -25,6 +29,10 @@ class User
       else
         {"errors" => errors}
       end
+    end
+
+    def find_by_phone(phone)
+      self.collection.find_one("phone" => phone)
     end
 
     def find(id)
