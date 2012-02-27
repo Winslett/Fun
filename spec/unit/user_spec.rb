@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe User do
 
+  before do
+    User.collection.remove()
+  end
+
   it "finds or creates users" do
     attributes = new_user_attributes
     user = User.create(attributes)
@@ -37,7 +41,7 @@ describe User do
       User.create(new_user_attributes)
     end
 
-    User.all.length.should == 7
+    User.all.length.should == 5
   end
 
 end

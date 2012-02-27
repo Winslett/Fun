@@ -7,7 +7,7 @@ describe "Users signing up via SMS" do
 
   it "signs up" do
     attributes = new_user_attributes
-    post "/signup", {:body => attributes["name"], :from => attributes["phone"]}
+    post "/signup", sms_attributes("Body" => attributes["name"], "From" => attributes["phone"])
 
     user = User.collection.find_one({phone: attributes["phone"]})
 
@@ -17,7 +17,7 @@ describe "Users signing up via SMS" do
 
   it "fails if data is incorrect" do
     attributes = {"name" => "", "from" => "8675309"}
-    post "/signup", {:body => attributes["name"], :from => attributes["phone"]}
+    post "/signup", sms_attributes("Body" => attributes["name"], "From" => attributes["phone"])
 
     user = User.collection.find_one({phone: attributes["phone"]})
 
@@ -26,7 +26,7 @@ describe "Users signing up via SMS" do
     user.should be_nil
 
     last_response.body.should =~ /Name must be in body of SMS/
-    last_response.body.shoudl =~ /Incorrect Phone Format/
+    last_response.body.should =~ /Incorrect Phone Format/
   end
 end
 

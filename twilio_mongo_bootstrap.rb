@@ -16,8 +16,7 @@ class TwilioMongoBootstrap < Sinatra::Base
   end
 
   post "/signup" do
-    puts @params
-    @user = User.create("phone" => @params["from"], "name" => @params["body"])
+    @user = User.create("phone" => @params["From"], "name" => @params["Body"])
 
     if @user["errors"].nil?
       haml :"signup.xml"
