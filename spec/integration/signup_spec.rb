@@ -12,7 +12,12 @@ describe "Users signing up via SMS" do
     user = User.collection.find_one({phone: attributes["phone"]})
 
     last_response.status.should eq(200)
-    last_response.body.should == "<?xml version='1.0' encoding='utf-8' ?>\n<Response>\n  <Sms>Log in at http://example.org/auth?phone=#{attributes["phone"]}&auth_key=#{user["auth_key"]}</Sms>\n</Response>\n"
+    last_response.body.should == <<-RESPONSE
+<?xml version='1.0' encoding='utf-8' ?>
+<Response>
+  <Sms>Thank you for logging in.  Your phone tree phone number is 205-683-2295.  You can send SMS messages or call it.</Sms>
+</Response>
+RESPONSE
   end
 
   it "fails if data is incorrect" do
