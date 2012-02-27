@@ -26,7 +26,7 @@ RESPONSE
 
     user = User.collection.find_one({phone: attributes["phone"]})
 
-    last_response.status.should eq(422)
+    last_response.status.should eq(200)
 
     user.should be_nil
 

@@ -23,7 +23,7 @@ class TwilioMongoBootstrap < Sinatra::Base
       haml :"signup.xml"
     else
       @errors = @user["errors"]
-      status(422)
+      status(200)
       haml :"signup_errors.xml"
     end
   end
@@ -59,7 +59,7 @@ class TwilioMongoBootstrap < Sinatra::Base
     @caller = User.find_by_phone(@params["From"])
 
     if @caller.nil?
-      status(422)
+      status(200)
       haml :"voice_errors.xml"
     else
       @user = User.find_by_extension(@params["Digits"])

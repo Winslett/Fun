@@ -49,12 +49,13 @@ RESPONSE
 
     post "/voice", sms_attributes("From" => caller["phone"])
 
-    last_response.status.should eq(422)
+    last_response.status.should eq(200)
     last_response.body.should == <<-RESPONSE
 <?xml version='1.0' encoding='utf-8' ?>
 <Response>
+  <Sms>Respond to this text with your name.</Sms>
   <Say>Thank you for calling my Twilio Mongo Bootstrap</Say>
-  <Say>Regretfully, we don't know who you are.  Please text your name to (205) 683-2303 to sign up.</Say>
+  <Say>Regretfully, we don't know who you are. Please text your name to (205) 683-2303 to sign up.</Say>
 </Response>
 RESPONSE
   end
