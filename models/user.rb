@@ -35,6 +35,10 @@ class User
       self.collection.find_one("phone" => phone)
     end
 
+    def find_by_extension(extension)
+      self.collection.find_one("extension" => extension.to_i)
+    end
+
     def find(id)
       self.collection.find_one("_id" => id)
     end

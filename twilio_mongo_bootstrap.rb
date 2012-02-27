@@ -56,7 +56,14 @@ class TwilioMongoBootstrap < Sinatra::Base
   end
 
   post "/connect_extension" do
-    puts @params.inspect
-    return {ok: 1}.to_json
+    @caller = User.find_by_phone(@params["From"])
+
+    if @caller.nil?
+      status(422)
+      haml :"voice_errors.xml"
+    else
+      @user = User.find_by_extension(@params["Digits"])
+      haml :"connect_extension.xml"
+    end
   end
 end

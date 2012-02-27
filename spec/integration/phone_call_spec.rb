@@ -32,7 +32,7 @@ RESPONSE
     caller = User.create(new_user_attributes)
     recipient = User.create(new_user_attributes)
 
-    post "/connect_extension", sms_attributes("From" => caller["phone"])
+    post "/connect_extension", sms_attributes("From" => caller["phone"], "Digits" => recipient["extension"])
 
     last_response.status.should eq(200)
     last_response.body.should == <<-RESPONSE
